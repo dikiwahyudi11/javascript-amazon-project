@@ -6,14 +6,22 @@ import {renderPaymentSummary} from "./checkout/paymentSummary.js";
 // import '../data/backend-practice.js'
 
 async function loadPage() {
-  await loadProductsFetch();
+  try {
+    // throw 'error1';
 
-  // Because loadProducts not promise
-  const value3 = await new Promise((resolve) => {
-    loadCart(() => {
-      resolve('value1');
+    await loadProductsFetch();
+
+    // Because loadProducts not promise
+    const value3 = await new Promise((resolve, reject) => {
+      loadCart(() => {
+        // throw 'error2';
+        // reject('error3);
+        resolve('value1');
+      });
     });
-  });
+  } catch(error) {
+    console.log('Unexpected error. Please try again later.');
+  }
 
   renderOrderSummary();
   renderPaymentSummary();
