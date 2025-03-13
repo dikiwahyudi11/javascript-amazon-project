@@ -5,7 +5,23 @@ import {renderPaymentSummary} from "./checkout/paymentSummary.js";
 // import '../data/cart-class.js'
 // import '../data/backend-practice.js'
 
+async function loadPage() {
+  await loadProductsFetch();
 
+  // Because loadProducts not promise
+  const value3 = await new Promise((resolve) => {
+    loadCart(() => {
+      resolve('value1');
+    });
+  });
+
+  renderOrderSummary();
+  renderPaymentSummary();
+}
+
+loadPage();
+
+/*
 Promise.all([
   loadProductsFetch(),
   new Promise((resolve) => {
@@ -18,6 +34,8 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
 });
+*/
+
 
 /*
 new Promise((resolve) => {
